@@ -1,4 +1,5 @@
 # orgChain 
+###  SECURE PRIVACY WITH STRONGER CHAINS
 orgChain seeks to address challenges faced by organisations(hospitals and nurseries)  in maintaining the security of donated organs information.It is designed to provide instant help and support to people in need of organs through a legalised channel without the involvement of any third party.To take into consideration the privacy of organisations and maintain the trust of public,the various features provided in our system are :
 - All legally authorised organisations can be inserted into the public channel of the blockchain
 - No third party can enter into the chain without the permission of all members already present in the chain
