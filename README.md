@@ -1,10 +1,10 @@
 # OrganTracking
 orgChain seeks to address challenges faced by organisations(hospitals and nurseries)  in maintaining the security of donated organs information.It is designed to provide instant help and support to people in need of organs through a legalised channel without the involvement of any third party.To take into consideration the privacy of organisations and maintain the trust of public,the various features provided in our system are :
-All legally authorised organisations can be inserted into the public channel of the blockchain
-No third party can enter into the chain without the permission of all members already present in the chain
-Any member of the public chain can create blocks regarding all available donated organs present
-Any member  of the public channel can access the already available organ information in the chain and can track the member who added that block in the chain.In this way,it can directly contact the other organisation if needed and can get the organ transported without involving any third party hindrance.
-To keep the donor’s information secure,each organisation is provided with a private channel that can be accessed only by it.  
+- All legally authorised organisations can be inserted into the public channel of the blockchain
+- No third party can enter into the chain without the permission of all members already present in the chain
+- Any member of the public chain can create blocks regarding all available donated organs present
+- Any member  of the public channel can access the already available organ information in the chain and can track the member who added that block in the chain.In this way,it can directly contact the other organisation if needed and can get the organ transported without involving any third party hindrance.
+- To keep the donor’s information secure,each organisation is provided with a private channel that can be accessed only by it.  
 
 # Pre-requisites
 - Golang
