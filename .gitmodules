@@ -1,0 +1,6 @@
+[submodule "OrganTrackingBlockchainNetwork"]
+	path = OrganTrackingBlockchainNetwork
+	url = https://github.com/vidit624/OrganTrackingBlockchainNetwork
+[submodule "OrganTrackingApi"]
+	path = OrganTrackingApi
+	url = https://github.com/vidit624/OrganTrackingApi
