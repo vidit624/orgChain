@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="blockchain.css">
+ <script>
+ window.onload = function() {
+ document.getElementById("back").onclick = function(){
+ 	window.location.href = "index.html";
+ }
+ document.getElementById("Save").onclick = function fun() {
+ var x = document.forms["myForm"]["userId"].value;
+ var y = document.forms["myForm"]["organID"].value;
+ var z = document.forms["myForm"]["donationYear"].value;
+ var a = document.forms["myForm"]["OrganType"].value;
+ var b = document.forms["myForm"]["bloodgroup"].value;
+ result= "{\n \"channelID\": \"cartrackingchannel\",\n \"ccId\": \"ctrack\",\n \"userId\": \""+x+"\",\n \"funcName\": \"createOrganDetails\",\n \"args\": [{\n \"organID\": \""+y+"\",\n \"donationYear\": \""+z+"\",\n \"organType\": \""+a+"\",\n \"bloodgroup\": \""+b+"\"\n}\n],\n \"peers\": [\n\"peer0.vectorcars.com\"\n]\n}";
+ var Url = "http://localhost:9090/api/invoke";
+ var xhr = new XMLHttpRequest();
+ xhr.open('POST', Url, true);
+ xhr.send(result);
+ xhr.onreadystatechange = processRequest;
+ function processRequest(e) {
+ if (xhr.readyState == 4 && xhr.status == 200) {
+ var response1 = JSON.parse(xhr.responseText);
+ alert(response1.payload.messsage);
+ document.getElementById("myTable").style.display='inline-block';
+ document.getElementById("isSuccess").innerHTML = response1.payload.isSuccess;
+ document.getElementById("organID").innerHTML = response1.payload.payload.organID;
+ document.getElementById("bloodgroup").innerHTML = response1.payload.payload.bloodgroup;
+ document.getElementById("donationYear").innerHTML = response1.payload.payload.donationYear;
+ document.getElementById("OrganType").innerHTML = response1.payload.payload.organType;
+ document.getElementById("status").innerHTML = response1.payload.payload.status;
+ document.getElementById("trxnId").innerHTML = response1.payload.payload.trxnId;
+ document.getElementById("ts").innerHTML = response1.payload.payload.ts;
+ document.getElementById("ccStatus").innerHTML = response1.payload.ccStatus;
+ document.getElementById("serverTs").innerHTML = response1.serverTs;
+ var temp = response1.payload.payload.updBy;
+if(temp == "VectorCarsMSP"){
+	document.getElementById("updBy").innerHTML = "HospitalAMSP"
+}
+else if(temp == "WBRTAMSP"){
+	document.getElementById("updBy").innerHTML= "HospitalBMSP"
+}
+else if(temp == "JamesDistributersMSP"){
+	document.getElementById("updBy").innerHTML = "HospitalCMSP"
+}
+
+ }
+ }
+ }
+ }
+</script>
+</head>
+<body>
+ <form name="myForm">
+ 	<fieldset>
+ 		<legend><strong>Organ Details Form</strong></legend>
+ 		<table>
+		 <tr><td><label>User ID: </label></td>
+		 <td><input type="text" name="userId"/></td></tr>
+		 <tr><td><label>Organ ID: </label></td>
+		 <td><input type="number" name="organID"/></td></tr>
+		 <tr><td><label>Donation Year: </label></td>
+		 <td><input type="number" name="donationYear"/></td></tr>
+		 <tr><td><label>OrganType: </label></td>
+		 <td><input type="text" name="OrganType"/></td></tr>
+		 <tr><td><label>Bloodgroup: </label></td>
+		 <td><input type="text" name="bloodgroup"/></td></tr>
+		 <tr><td><a href="#" class="btn btn-1" id="Save" style="padding-left: 35px;max-width: 140%">
+		<svg>
+			<rect x="0" y="0" fill="none" height="100%" style="width: 40%"/>
+		</svg>
+	 Create
+	</a></td><td><a href="#" class="btn btn-1" id="back" style="padding-left: 35px;" >
+		<svg>
+			<rect x="0" y="0" fill="none" height="100%" style="width: 25%"/>
+		</svg>
+	 Back
+	</a></td></tr>
+		</table>
+	</fieldset>
+ <br><br>
+ <table border="1" id="myTable" style="display: none;">
+ <tr><td>Success :</td><td id="isSuccess"></td></tr>
+ <tr><td>Organ ID :</td><td id="organID"></td></tr>
+ <tr><td>Bloodgroup :</td><td id="bloodgroup"></td></tr>
+ <tr><td>Donation Year :</td><td id="donationYear"></td></tr>
+ <tr><td>OrganType :</td><td id="OrganType"></td></tr>
+ <tr><td>Status :</td><td id="status"></td></tr>
+ <tr><td>Transaction ID :</td><td id="trxnId"></td></tr>
+ <tr><td>Timestamp :</td><td id="ts"></td></tr>
+ <tr><td>Updated By :</td><td id="updBy"></td></tr>
+ <tr><td>ccStatus :</td><td id="ccStatus"></td></tr>
+ <tr><td>Server Timestamp :</td><td id="serverTs"></td></tr>
+ </table>
+</form>
+</body>
+</html>

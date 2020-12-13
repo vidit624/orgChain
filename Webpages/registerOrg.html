@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="blockchain.css">
+ <script>
+ window.onload = function() {
+ document.getElementById("back").onclick = function(){
+ 	window.location.href = "index.html";
+ }
+ document.getElementById("Save").onclick = function fun() {
+ var x = document.forms["myForm"]["userId"].value;
+ var y = document.forms["myForm"]["args"].value;
+  if (y=="HospitalA") {
+	 	var Url = "http://localhost:9090/api/invoke";
+	 	var z = "peer0.vectorcars.com";
+	}
+	else if(y=="HospitalB"){
+		var Url = "http://localhost:9091/api/invoke";
+		var z = "peer0.wbrta.gov.in";
+	}
+	else if(y=="HospitalC"){
+ 		var Url = "http://localhost:9092/api/invoke";
+ 		var z = "peer0.jamesdistributers.net";
+ 	}
+ result= "{\n \"channelID\": \"cartrackingchannel\",\n \"ccId\": \"ctrack\",\n \"userId\": \""+x+"\",\n \"funcName\": \"registerOrg\",\n \"args\": [\n \""+y+"\"\n],\n \"peers\": [\n\""+z+"\"\n]\n}";
+ var xhr = new XMLHttpRequest();
+ xhr.open('POST', Url, true);
+ xhr.send(result);
+ xhr.onreadystatechange = processRequest;
+ function processRequest(e) {
+ if (xhr.readyState == 4 && xhr.status == 200) {
+ var response1 = JSON.parse(xhr.responseText);
+ alert(response1.payload.payload);
+ document.getElementById("myTable").style.display='inline-block';
+ document.getElementById("isSuccess").innerHTML = response1.payload.isSuccess;
+ document.getElementById("payload").innerHTML = response1.payload.payload;
+ document.getElementById("ccStatus").innerHTML = response1.payload.ccStatus;
+ document.getElementById("message").innerHTML = response1.payload.messsage;
+ document.getElementById("serverTs").innerHTML = response1.serverTs;
+ }
+ }
+ }
+ }
+</script>
+</head>
+<body>
+ <form name="myForm">
+ 	<fieldset>
+ 		<legend><strong>Organisation Registration Form</strong></legend>
+ 		<table>
+		 <tr><td><label>User ID: </label></td>
+		 <td><input type="text" name="userId"/></td></tr>
+		 <tr><td><label>Arguments: </label></td>
+		 <td><select name="args">
+					<option>HospitalA</option>
+					<option>HospitalB</option>
+					<option>HospitalC</option>
+				</select></td></tr>
+		 <tr><td><a href="#" class="btn btn-1" id="Save" style="padding-left: 10px;max-width: 200%">
+		<svg>
+			<rect x="0" y="0" fill="none" height="100%" style="width: 40%"/>
+		</svg>
+	 Register
+ </a></td><td><a href="#" class="btn btn-1" id="back" style="padding-left: 30px;" >
+		<svg>
+			<rect x="0" y="0" fill="none" height="100%" style="width: 20%"/>
+		</svg>
+	 Back
+	</a></td></tr>
+		</table>
+	</fieldset>
+ <br><br>
+ <table border="1" id="myTable" style="display: none;">
+ <tr><td>Success :</td><td id="isSuccess"></td></tr>
+ <tr><td>Payload :</td><td id="payload"></td></tr>
+ <tr><td>ccStatus :</td><td id="ccStatus"></td></tr>
+ <tr><td>Message :</td><td id="message"></td></tr>
+ <tr><td>Server Timestamp :</td><td id="serverTs"></td></tr>
+ </table>
+</form>
+</body>
+</html>

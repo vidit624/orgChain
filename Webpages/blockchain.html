@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="blockchain.css">
+ <script>
+ window.onload = function() {
+ document.getElementById("back").onclick = function(){
+ 	window.location.href = "index.html";
+ }
+ document.getElementById("Save").onclick = function fun() {
+ // document.getElementById("preloader").style.display='inline-block';
+ var x = document.forms["myForm"]["userId"].value;
+ var y = document.forms["myForm"]["secret"].value;
+ var z = document.forms["myForm"]["role"].value;
+ result= "{\n \"userId\": \""+x+"\",\n \"secret\": \""+y+"\",\n \"role\": \""+z+"\"\n}";
+ 	if (z=="HospitalA") {
+	 	var Url = "http://localhost:9090/api/enrolluser";
+	}
+	else if(z=="HospitalB"){
+		var Url = "http://localhost:9091/api/enrolluser";
+	}
+	else if(z=="HospitalC"){
+ 		var Url = "http://localhost:9092/api/enrolluser";
+ 	}
+ var xhr = new XMLHttpRequest();
+ xhr.open('POST', Url, true);
+ xhr.send(result);
+ xhr.onreadystatechange = processRequest;
+
+ function processRequest(e) {
+
+ if (xhr.readyState == 4 && xhr.status == 200) {
+
+ var response1 = JSON.parse(xhr.responseText);
+ // document.getElementById("preloader").style.display='none';
+ alert(response1.message);
+ document.getElementById("myTable").style.display='inline-block';
+ document.getElementById("isSuccess").innerHTML = response1.isSuccess;
+ document.getElementById("userId").innerHTML = response1.payload.userId;
+ document.getElementById("role").innerHTML = response1.payload.role;
+ document.getElementById("serverTs").innerHTML = response1.serverTs;
+ }
+ }
+ }
+ }
+</script>
+</head>
+<body>
+<!-- <div id="preloader" style="display: none;"> -->
+  <div id="loader"></div>
+</div>
+ <form name="myForm">
+ 	<fieldset>
+ 		<legend><strong>User Registration Form</strong></legend>
+ 		<table>
+		 <tr><td><label>User ID: </label></td>
+		 <td><input type="text" name="userId"/></td></tr>
+		 <tr><td><label>Password: </label></td>
+		 <td><input type="password" name="secret"/></td></tr>
+		 <tr><td><label>Role: </label></td>
+		 <td><select name="role">
+					<option>HospitalA</option>
+					<option>HospitalB</option>
+					<option>HospitalC</option>
+				</select></td></tr>
+		 <tr><td>
+	<a href="#" class="btn btn-1" id="Save" style="padding-left: 35px;">
+		<svg>
+			<rect x="0" y="0" fill="none" height="100%" style="width: 40%"/>
+		</svg>
+	 Save
+	</a>
+	</td><td><a href="#" class="btn btn-1" id="back" style="padding-left: 35px;" >
+		<svg>
+			<rect x="0" y="0" fill="none" height="100%" style="width: 25%"/>
+		</svg>
+	 Back
+	</a></td></tr>
+</div>
+</section>
+		</table>
+	</fieldset>
+ <br><br>
+ <table border="1" id="myTable" style="display: none;">
+ <tr><td>Success :</td><td id="isSuccess"></td></tr>
+ <tr><td>User Id :</td><td id="userId"></td></tr>
+ <tr><td>Role :</td><td id="role"></td></tr>
+ <tr><td>Server Timestamp :</td><td id="serverTs"></td></tr>
+ </table>
+ </form>
+</body>
+</html>
