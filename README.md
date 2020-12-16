@@ -30,7 +30,7 @@ $cd orgChain/OrganTrackingBlockchainNetwork
 
 1. Download Binaries
 ```
-$https://drive.google.com/drive/folders/1HC5baB-KKz7_aGcSzb-UZUMZdeZvS1TA?usp=sharing
+$./downloadbin.sh
 
 ```
 2. Generating Artficats
